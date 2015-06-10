@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>BioKIDS: {{title}} - {{group_code}}</title>
+    <style>
+h2 { margin-bottom: 2px;}
+table { padding-top:40px;}
+table.report td {
+  font-size: 9px;
+  font-family: Verdana, Arial;
+}
+
+
+.report th {border-top: 1px #ccc solid; border-left: 1px #ccc solid;background-color:black;color:white; font-size: 6px;} 
+.report th a { color: white;}
+.report th.sorted { background-color:#666;}
+.report td {border-top: 1px #ccc solid; border-left: 1px #ccc solid; font-size: 6px;} 
+.r {border-right: 1px #ccc solid;} 
+.b {border-bottom: 1px #ccc solid} 
+.c {text-align: center !important}
+.l {text-align: left}
+.t { border: none !important;}
+.even { background-color: white ; }
+.odd { background-color: #eeeeee; }
+
+table.team { width: 100%; padding-top: 5px;}
+.team th { background-color: #ccc; font-size: 14px; text-align: left; color: black; padding: 4px;}
+.team td { font-size: 14px !important; padding: 4px;}
+.totals td { border: 0; border-top: 2px solid black;}
+    </style>
+  </head>
+  <body>
+    <small><a href="{{ base_path }}/">BioKIDS</a> &raquo; <a href="{{ base_path }}/cybertracker/">CyberTracker Tools</a></small>
+    <h2>{{title}}: {{group_code}}</h2>
+    <small>
+      <a href="{{ base_path }}/cybertracker/observation_report/{{group_code}}/">Observation Report</a> | 
+      <a href="{{ base_path }}/cybertracker/zone_report/{{group_code}}/">Zone Report</a> | 
+      <a href="{{ base_path }}/cybertracker/habitat_report/{{group_code}}/">Habitat Report</a> | 
+      <a href="{{ base_path }}/cybertracker/team_report/{{group_code}}/">Team Report</a> | 
+      <a href="{{ base_path }}/cybertracker/energy_role_report/{{group_code}}/">Schoolyard Energy Role Report</a>
+    </small>
+    
+    <br clear="both"/>
+    
+    {{body|safe}}
+    
+
+  </body>
+</html>

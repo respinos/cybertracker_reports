@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    {% include "_header.html" %}
+    {%block javascript%}{% endblock %}
+    
+</head>
+<body>
+<div id="wrapper">
+
+    <div id="skipTo">
+      Skip directly to <a href="#contentContainer">main content</a>.<br class="hidden"><hr class="hidden">
+    </div>
+
+    {% include "_menu.html" %}
+
+    <div id="sectionHeadingContainer">
+        <div id="sectionHeading">
+            <div id="sectionTitle">
+                <h1>{% block section_title %}{% endblock %}</h1>
+            </div>
+            {% block carousel %}{% endblock %}
+        </div>
+    </div>
+  
+  <div id="contentContainer">
+    <div class="oneColumn">
+              
+      <div class="mainContent">
+        
+        {% block document_title %}{% endblock %}
+        
+        {% block content %}{% endblock %}
+        
+      </div><!-- end mainContent -->
+      
+      <!-- extra clearing div --> 
+      <div class="clear"></div>
+      
+    </div> <!-- end oneColumn -->
+  </div> <!-- end contentContainer -->
+  
+  {% include "_footer.html" %}
+  
+</div><!-- end wrapper -->
+</body></html>

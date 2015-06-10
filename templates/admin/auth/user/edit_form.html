@@ -1,0 +1,95 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_modify adminmedia %}
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" src="../../../jsi18n/"></script>
+{{ media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />{% endblock %}
+
+{% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% block breadcrumbs %}{% if not is_popup %}
+<div class="breadcrumbs">
+     <a href="../../../">{% trans "Home" %}</a> &rsaquo;
+     <a href="../../">{{ app_label|capfirst|escape }}</a> &rsaquo; 
+     {% if has_change_permission %}<a href="../">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} &rsaquo; 
+     {% if add %}{% trans "Add" %} {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}
+</div>
+{% endif %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <h1>Change user</h1>
+  
+  <form method="POST" action="/admin/auth/user/{{change_user.id}}/">
+    <div>
+  <fieldset class="module aligned ()">
+    <div class="form-row">
+      <label for="id_username" class="required">Username:</label> <input type="text" id="id_username" class="vTextField required" name="username" size="30" value="{{change_user.username}}" maxlength="30">
+      <p class="help">
+        Required. 30 characters or fewer. Alphanumeric characters only (letters, digits and underscores).
+      </p>
+    </div>
+    <div class="form-row">
+      <label for="id_password" class="required">Password:</label> <input type="text" id="id_password" class="vTextField required" name="password" size="30" value="{{change_user.password}}" maxlength="128">
+      <p class="help">
+        Use '[algo]$[salt]$[hexdigest]' or use the <a href="password/">change password form</a>.
+      </p>
+    </div>
+  </fieldset>
+  <fieldset class="module aligned ()">
+    <h2>
+      Personal info
+    </h2>
+    <div class="form-row">
+      <label for="id_first_name">First name:</label> <input type="text" id="id_first_name" class="vTextField" name="first_name" size="30" value="{{change_user.first_name}}" maxlength="30">
+    </div>
+    <div class="form-row">
+      <label for="id_last_name">Last name:</label> <input type="text" id="id_last_name" class="vTextField" name="last_name" size="30" value="{{change_user.last_name}}" maxlength="30">
+    </div>
+    <div class="form-row">
+      <label for="id_last_name">Organization:</label> <input type="text" id="id_last_name" class="vTextField" name="organization" size="65" value="{{change_user.organization}}" maxlength="128">
+    </div>
+    <div class="form-row">
+      <label for="id_email">E-mail address:</label> <input type="text" id="id_email" class="vEmailField" name="email" size="50" value="{{change_user.email}}" maxlength="75">
+    </div>
+  </fieldset>
+  <fieldset class="module aligned">
+    <h2>
+      Tracker Codes
+    </h2>
+    {% if tracker_groups %}
+    <div class="form-row">
+      <label>Available tracker codes</label>
+      <ul>
+        {% for code in tracker_groups %}
+          <li>{{code.code}}: {{code.name}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    <div class="form-row">
+      <label>Assign code</label>
+      <select name="sequence">
+        <option> - select sequence - </option>
+        <option value="S4">Sequence 4</option>
+        <option value="S5">Sequence 5</option>
+        <option value="S6">Sequence 6</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Number of classes</label>
+      <input type="text" size="5" name="number_classes" value="" />
+    </div>
+  </fieldset>
+  {% submit_row %}
+    </div>
+  </form>
+
+</div>
+{% endblock content %}
+

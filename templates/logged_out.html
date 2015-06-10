@@ -1,0 +1,23 @@
+{% extends "widescreen.html" %}
+
+{% block document_title %}
+  <h2>Goodbye</h2>
+{% endblock %}
+
+{% block content %}
+<p>
+  You have been logged out.
+</p>
+{% endblock %}
+
+{% block carousel %}
+<div id="imgWrapper">
+    <div id="imgBar" style="overflow:hidden;">
+        <img class="default" alt="Detroit public school kids engaged in BioKIDS activities" src="{{ base_path }}/images/default_biokids_banner.jpg" height="117" width="601" />
+    </div>
+</div>
+{% endblock %}
+
+{% block section_title %}
+<a href="{{ base_path }}/"><span>BioKIDS</a></span>
+{% endblock %}

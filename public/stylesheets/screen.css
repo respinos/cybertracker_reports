@@ -1,0 +1,17 @@
+/* Importing styles for modern browers */
+
+@import url("bioKIDSmain.css");
+
+
+/* Import IE5/Mac hacks with Band Pass Filter: http://stopdesign.com/examples/ie5mac-bpf/ */
+
+/*\*//*/
+  @import "hacks/ie5mac.css";
+/**/
+
+
+/* Import IE5/Win hacks with the Mid Pass Filter: http://tantek.com/CSS/Examples/midpass.html */
+
+@media tty {
+ i{content:"\";/*" "*/}} @import 'hacks/ie5win.css'; /*";}
+}/* */

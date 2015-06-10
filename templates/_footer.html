@@ -1,0 +1,45 @@
+  <!-- footer -->
+  <!--<hr class="hidden" />-->
+
+  <div id="footerNavContainer">
+    <div id="footerNav">
+      &nbsp;<!--<ul>
+        <li><a href="#">Critter Catalog</a></li>
+        <li><a href="#">Field Guides</a></li>
+        <li><a href="#">Projects</a></li>   
+        <li><a href="#">Resources</a></li>    
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Glossary</a></li>
+        <li><a href="#">Help</a></li>
+        <li></li>
+      </ul>-->
+    </div>
+  </div>
+
+  <hr class="hidden" />
+
+  <div id="footer2Wrap">
+    <div id="footer2">
+      <a href="http://www.ummz.lsa.umich.edu/"><img src="{{ base_path }}/images/ummzLogoSm.gif" alt="University of Michigan Museum of Zoology" title="University of Michigan Museum of Zoology" height="78" width="78"></a>
+      <a href="http://www.nsf.gov/"><img src="{{ base_path }}/images/nsfe.jpg" alt="National Science Foundation" title="National Science Foundation" height="78" width="79"></a>
+      <p><a href="{{ base_path }}/">BioKIDS home</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{ base_path }}/help/questions">Questions?</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://animaldiversity.org/">Animal Diversity Web</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{ base_path }}/cybertracker">Cybertracker Tools</a></p>
+      {% block citation %}{% endblock %}
+      <p>BioKIDS is sponsored in part by the Interagency Education Research Initiative. 
+It is a partnership of the <a href="http://www.umich.edu/">University of Michigan</a> <a href="http://www.soe.umich.edu/">School of Education</a>, <a href="http://www.umich.edu/">University of Michigan</a> <a href="http://www.ummz.lsa.umich.edu/">Museum of Zoology</a>, and the <a href="http://www.detroit.k12.mi.us/">Detroit Public Schools</a>. This material is based upon work supported by the <a href="http://www.nsf.gov/">National Science Foundation</a> under Grant DRL-0628151.<br />Copyright © 2002-{%now "Y"%}, The Regents of the University of Michigan. All rights reserved.</p>
+      <a href="http://www.umich.edu/"><img src="{{ base_path }}/images/umlogo.gif" alt="University of Michigan" title="University of Michigan" height="19" width="158"></a>
+    </div>
+  </div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-7143967-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  <!-- end footer -->

@@ -1,0 +1,24 @@
+{% extends "widescreen.html" %}
+{% load taxon_linker %}
+
+{% block section_title %}
+<a href="{{ base_path }}/cybertracker/"><span>Cyber-<br />Tracker</a></span>
+{% endblock %}
+
+{% block carousel %}
+<div id="imgWrapper">
+    <div id="imgBar" style="overflow:hidden;">
+        <img class="default" alt="Detroit public school kids engaged in BioKIDS activities" src="{{ base_path }}/images/default_biokids_banner.jpg" height="117" width="601" />
+    </div>
+</div>
+{% endblock %}
+
+{% block secondary_navigation %}
+{% endblock secondary_navigation %}
+
+{% block document_title %}
+  {% if document_title %}
+  <h2>{{ document_title }}</h2>
+  {% endif %}
+{% endblock %}
+

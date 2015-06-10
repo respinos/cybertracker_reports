@@ -1,0 +1,41 @@
+{% extends "cybertracker/section.html" %}
+
+{% block document_title %}
+  <h2>Upload completed</h2>
+{% endblock %}
+
+{% block content %}
+
+  {% if num_entries and not num_skipped %}
+    <p>Your data was uploaded successfully.</p>
+  {% endif %}
+
+  {% if not num_entries and num_skipped %}
+    <p>Your data was not processed.</p>
+  {% endif %}
+
+  {% if num_entries and num_skipped %}
+    <p>Your data was processed; some entries were skipped.</p>
+  {% endif %}
+  
+  {% if num_entries %}
+    <blockquote>
+      <p>
+        Number of observations added: {{ num_entries }}.
+      </p>
+    </blockquote>
+  {% endif %}
+
+  {% if num_skipped %}
+    <blockquote>
+      <p>
+        Number of observations skipped: {{ num_skipped }}.
+      </p>
+    </blockquote>
+  {% endif %}
+  
+  <p>
+    <a href="{{ base_path }}/cybertracker/">Return to CyberTracker Tools</a>
+  </p>
+
+{% endblock content %}

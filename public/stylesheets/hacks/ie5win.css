@@ -1,0 +1,28 @@
+/****************************************
+ * IE5/Win Hacks
+ ****************************************/
+ 
+body {
+	text-align: center; /* IE5/Win does not support 'margin: 0 auto' for centering */
+	}
+	
+/* IE5.0 needs text-decoration for underlines, but IE5.5 can use border-bottom */	
+body a {text-decoration: underline;} /* give IE5.0 the underline */
+
+body a/**/ {text-decoration: none;} /* remove underline value from IE5.5 (hide this rule from IE5.0) */
+	
+/*
+	Vertical nav
+*/
+
+ul#sections li a {
+	height: 1em;
+	float: left;
+	clear: both;
+	width: 100%;
+	}
+
+#primaryNav a {
+	position: relative;
+	height 1em;
+	}

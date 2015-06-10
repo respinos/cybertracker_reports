@@ -1,0 +1,216 @@
+{% extends "cybertracker/section.html" %}
+
+{% block document_title %}
+  {% if user.is_authenticated %}
+  <h2>Welcome, {{user.get_full_name}}!</h2>
+  {% else %}
+  <h2>Welcome to CyberTracker!</h2>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+  <!-- <p>
+    <strong>Welcome, {{ user.get_full_name }}!</strong>
+  </p> -->
+  <form method="GET" action="{{base_path}}/accounts/logout/">
+    <p>
+    <input type="submit" class="submit" value=" Sign out " />
+    </p>
+  </form>
+
+  {% if messages %}
+  <div class="message">
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <h2>Reports</h2>
+
+  {% if not groups %}
+    <p>
+      <em>Sorry, you are not permitted to view any data.</em>
+    </p>
+  {% else %}
+  
+    <form method="GET" action="{{base_path}}/cybertracker/choose_report/" class="cybertracker">
+      <p>
+        <strong>Select a report:</strong>
+      </p>
+      <blockquote>
+        <p>
+          <input type="radio" name="report_name" value="team_report" checked="checked" id="team_report_option"/>
+            <label for="team_report_option"><strong>Team Report (4th Grade)</strong></label>
+        </p>
+        <p>
+          <input type="radio" name="report_name" value="habitat_report" id="habitat_report_option" />
+            <label for="habitat_report_option"><strong>Habitat Report (5th Grade)</strong></label>
+        </p>
+        <p>
+          <input type="radio" name="report_name" value="zone_report" id="zone_report_option"/>
+            <label for="zone_report_option"><strong>Zone Report (5th Grade)</strong></label>
+        </p>
+        <p>
+          <input type="radio" name="report_name" value="observation_report" id="observation_report_option"/>
+            <label for="observation_report_option"><strong>Observation Report (5th Grade)</strong></label>
+        </p>
+        <p>
+          <input type="radio" name="report_name" value="energy_role_report" id="energy_role_report_option"/>
+            <label for="energy_role_report_option"><strong>Schoolyard Energy Role Report (6th Grade)</strong></label>
+        </p>
+      </blockquote>
+
+      {% ifequal number_groups 1 %}
+        {% for group in groups %}
+        <p>
+          <strong>Group: </strong> {{group.code}}: {{ group.name }}
+          <input type="hidden" name="group_code" value="{{group.code}}" />
+        </p>
+        {% endfor %}
+      {% endifequal %}
+      {% ifnotequal number_groups 1 %}
+        <p>
+          <select name="group_code" size="1" style="width:450px">
+            <option value="-"> - select a group code - </option>
+            {% for group in groups %}
+              <option value="{{ group.code }}" {% ifequal group.code group_code %}SELECTED="SELECTED"{% endifequal %}>{{ group.code }}: {{group.name}}</option>
+            {% endfor %}
+          </select>
+        </p>
+          </p>
+        </blockquote>
+      {% endifnotequal %}
+    
+        <!-- <p>
+          Start: <input type="text" name="start_date" class="date_input" />
+        </p>
+        <p>
+          End: <input type="text" name="end_date" class="date_input" />
+        </p> -->
+        
+        <input type="hidden" name="start" id="date_start" value="{{start}}" style="width:15%" />
+        <input type="hidden" name="end" id="date_end" value="{{end}}" style="width:15%" />
+        
+        <p id="date-select">
+          <strong>View reports between:</strong>
+        </p>
+        <p><small>Click once to to select the start date; click again to select the end date.</small></p>
+        <br />
+        <script type="text/javascript" charset="utf-8">
+        $("#date-select").DatePicker({
+            flat:true,
+            format:'Y-m-d',
+            date:[$("#date_start").val(), $("#date_end").val()],
+            current:'{{now}}',
+            calendars:2,
+            mode:'range',
+            starts:1,
+            onBeforeShow: function() {
+              console.log("BEFORE SHOW");
+              var date_range = $("#date_start").val() + "," + $("#date_end").val();
+              console.log("DATE RANGE:", date_range);
+              $("#date-select").DatePickerSetDate(date_range, true);
+            },
+            onChange: function(formatted, dates) {
+              // $('#date_range').val(formatted);
+              $("#date_start").val(formatted[0]);
+              $("#date_end").val(formatted[1]);
+              console.log("CHANGE", formatted);
+            }
+          })
+        </script>
+    
+        <p>
+          <input type="submit" class="submit" value=" View Report " />
+        </p>
+      </form>
+    
+  {% endif %}
+  
+  {% ifnotequal user.username "guest" %}
+  {% if groups %}
+    <h2>Upload CyberTracker Data</h2>
+    
+    <p>
+      To upload data from CyberTracker, you have to export to a <strong>comma-delimited value (csv)</strong> file. <strong><em>The filename must end with</em> <tt>.csv</tt></strong> (e.g. <tt>Oct26_data.csv</tt>, not <tt>Oct26_export.txt</tt>, etc.).
+    </p>
+    
+    <form method="POST" action="{{ base_path }}/cybertracker/verify_upload/" enctype="multipart/form-data">
+    <p>
+        <input type="file" name="datafile" size="50" />
+        <br />
+        <input class="submit" type="submit" value="Upload" />
+    </p>
+    </form>    
+
+  {% endif %}
+  {% endifnotequal %}
+  
+  {% if user.is_superuser %}
+    <h2>Delete Observation Data</h2>
+    <p>
+      Delete data for a group (only available to superusers).
+    </p>
+  
+    <form method="POST" action="{{base_path}}/cybertracker/recycle/">
+      <p>
+      <select name="group_code" size="1" style="width:450px">
+        <option value=""> - select a group code - </option>
+        {% for group in groups %}
+        <option value="{{group.code}}">{{group.code}}: {{group.name}}</option>
+        {% endfor %}
+      </select>
+      </p>
+      <p>
+        <input type="submit" class="submit" value="Delete" />
+      </p>
+    </form>
+        
+  {% endif %}
+  
+{% else %}
+
+<p>
+  You need to sign in to use the CyberTracker Tools.
+</p>
+
+  {% if form.errors %}
+    <p class="error">Sorry, that's not a valid username or password.</p>
+  {% endif %}
+  
+  {% if message %}
+  <p class="error">{{message}}</p>
+  {% endif %}
+  
+  <form action="{{base_path}}/login/" method="POST">
+    <p>
+      <label for="username">User name:</label>
+      <input type="text" name="username" value="" id="username" />
+    </p>
+    
+    <p>
+      <label for="password">Password:</label>
+      <input type="password" name="password" value="" id="password" />
+    </p>
+    
+    <p>
+      <input class="submit" type="submit" value="Sign in" />
+      <input type="hidden" name="next" value="{{ next|escape }}" />
+    </p>
+  </form>
+
+
+{% endif %}
+
+<!-- <script type="text/javascript" charset="utf-8">
+  $($.date_input.initialize);
+</script> -->
+
+{% endblock content %}
+

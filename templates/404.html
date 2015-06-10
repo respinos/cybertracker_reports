@@ -1,0 +1,19 @@
+{% extends "nodes/section.html" %}
+
+{% block document_title %}
+<h1>Oops</h1>
+{% endblock %}
+
+{% block content %}
+<h2>Looking for something?</h2>
+<p>
+    Sorry, that web address does not lead to a page on our site.
+</p>
+<p>
+  Sometimes that happens because a name has been changed.
+  In that case, you can try searching for its content.
+</p>
+
+{% include "search/form.html" %}
+
+{% endblock %}

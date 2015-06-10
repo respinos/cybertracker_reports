@@ -1,0 +1,44 @@
+{% extends "widescreen.html" %}
+
+{% block document_title %}
+  <h2>Sign in</h2>
+{% endblock %}
+
+{% block content %}
+
+{% if message %}
+<p>
+  {{message}}
+</p>
+{% endif %}
+
+<form action="{{base_path}}/login/" method="POST">
+  <p>
+    <label for="username">User name:</label>
+    <input type="text" name="username" value="" id="username" />
+  </p>
+  
+  <p>
+    <label for="password">Password:</label>
+    <input type="password" name="password" value="" id="password" />
+  </p>
+  
+  <p>
+    <input class="submit" type="submit" value="Sign in" />
+    <input type="hidden" name="next" value="{{ next|escape }}" />
+  </p>
+</form>
+
+{% endblock %}
+
+{% block carousel %}
+<div id="imgWrapper">
+    <div id="imgBar" style="overflow:hidden;">
+        <img class="default" alt="Detroit public school kids engaged in BioKIDS activities" src="{{ base_path }}/images/default_biokids_banner.jpg" height="117" width="601" />
+    </div>
+</div>
+{% endblock %}
+
+{% block section_title %}
+<a href="{{ base_path }}/"><span>BioKIDS</a></span>
+{% endblock %}

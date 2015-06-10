@@ -1,0 +1,38 @@
+{% extends "cybertracker/section.html" %}
+
+{% block document_title %}
+<h1>Upload Error</h1>
+{% endblock %}
+
+{% block content %}
+<h2>Upload Error</h2>
+<p>
+  {{message|safe}}
+</p>
+
+{% if uploaded_groups %}
+
+  <p>
+    Your data file contained the following groups:
+  </p>
+  <ul>
+    {% for group in uploaded_groups %}
+    <li>
+      {% if not group.is_valid %}
+        {{group.code}}
+        <br />
+        <span class="error">Not a valid group code.</span>
+      {% else %}
+        {{group.code}}: {{group.name}}
+        {% if not group.has_access %}
+          <br />
+          <span class="error">You cannot upload observations for this group.</span>
+        {% endif %}
+      {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endif %}
+
+{% endblock %}

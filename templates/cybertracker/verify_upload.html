@@ -1,0 +1,66 @@
+{% extends "cybertracker/section.html" %}
+
+{% block document_title %}
+  <h2>Verifying Data</h2>
+{% endblock %}
+
+{% block content %}
+
+{% if uploaded_groups %}
+
+  <p>
+    Your data file contained the following groups:
+  </p>
+  <ul>
+    {% for group in uploaded_groups %}
+    <li>
+      {% if not group.is_valid %}
+        {{group.code}}
+        <br />
+        <span class="error">Not a valid group code.</span>
+      {% else %}
+        {{group.code}}: {{group.name}}
+        {% if not group.has_access %}
+          <br />
+          <span class="error">You cannot upload observations for this group.</span>
+        {% endif %}
+      {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  
+  <h3>Assigning group codes</h3>
+  
+  <p>
+    You can pick a group code from the list below; this will replace
+    the group codes in your uploaded data. (This can be useful if the
+    observations have been attributed to the wrong group code.)
+  </p>
+  
+  {% if has_errors %}
+    <p><strong>Unless you choose a correct group code, observations with 
+      bad codes will be ignored.</strong></p>
+  {% endif %}
+
+  <form method="GET" action="{{ base_path }}/cybertracker/process_upload/">
+    <p>
+    <select name="group_code" size="1" style="width:450px">
+      <option value=""> - select a group code - </option>
+      {% for group in groups %}
+      <option value="{{group.code}}">{{ group.code }}: {{ group.name }}</option>
+      {% endfor %}
+    </select>
+    </p>
+    <p>
+      <input type="submit" class="submit" value="Continue" />
+    </p>
+  </form>
+
+{% else %}
+
+  <p>
+    No group codes were found in your data.
+  </p>
+
+{% endif %}
+{% endblock content %}
